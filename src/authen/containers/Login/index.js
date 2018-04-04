@@ -51,10 +51,10 @@ const validate = values => {
     password = "";
   }
   if (username.length == 0 || username == "") {
-    error.username = "empty";
+    error.username = "trống";
   }
   if (password.length == 0 || password == "") {
-    error.password = "empty";
+    error.password = "trống";
   }
   return error;
 };
@@ -146,7 +146,7 @@ class login extends Component {
           style={styles.backgroundImage}
         />
         {/* ngôn ngữ */}
-        <Grid style={styles.language_container}>
+        {/* <Grid style={styles.language_container}>
           <Col style={styles.col_language}>
             {this.state.languageSelect == "en" ? (
               <Thumbnail
@@ -169,10 +169,10 @@ class login extends Component {
               onValueChange={this.onValueChange.bind(this)}
             >
               <Item label="Tiếng việt" value="vn" />
-              {/* <Item label="English" value="en" /> */}
+              <Item label="English" value="en" />
             </Picker>
           </Col>
-        </Grid>
+        </Grid> */}
         {/* form login */}
         <View style={styles.screen}>
           <View style={styles.loginform}>

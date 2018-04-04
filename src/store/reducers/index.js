@@ -1,7 +1,6 @@
 //authen
 import loginReducer from "../../authen/reducers/login_reducer";
 //app
-import navigationReducer from "./root_navigation/root_navigation_reducer";
 import searchReducer from "../../store/reducers/containers/search_reducer";
 import app_Reducer from "../../store/reducers/app_reducer";
 import * as types from "../../store/constants/action_types";
@@ -20,7 +19,6 @@ import { reducer as formReducer } from "redux-form";
 // });
 
 const appReducer = combineReducers({
-  navigationReducer,
   loginReducer,
   searchReducer,
   app_Reducer,

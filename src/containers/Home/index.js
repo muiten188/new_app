@@ -38,7 +38,7 @@ import FormSearch from "./form_search";
 const blockAction = false;
 const blockLoadMoreAction = false;
 
-class search extends Component {
+class Home extends Component {
   currentApartment = {};
   static navigationOptions = {
     header: null
@@ -297,5 +297,5 @@ function mapToDispatch(dispatch) {
 //   form: "search"
 //   // enableReinitialize: true
 // })(search);
-search = connect(mapStateToProps, mapToDispatch)(search);
-export default search;
+Home = connect(mapStateToProps, mapToDispatch)(Home);
+export default Home;

@@ -3,6 +3,6 @@
     <item>
         <bitmap
             android:gravity="fill"
-            android:src="@mipmap/flash"/>
+            android:src="@mipmap/splash"/>
     </item>
 </selector>

@@ -2,10 +2,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Platform, BackHandler, ToastAndroid } from 'react-native';
-import { addNavigationHelpers } from 'react-navigation';
-import { Router, Scene,Stack } from 'react-native-router-flux';
+import { Router, Scene, Stack } from 'react-native-router-flux';
 //list screen
-import Home from "../containers/Home";
+import Login from '../authen/containers/Login';
+import Register from '../authen/containers/Register';
+import Home from '../containers/Home';
+
+
 class RootNavigation extends React.Component {
     //Life cycle component
     constructor(props) {
@@ -35,11 +38,20 @@ class RootNavigation extends React.Component {
     render() {
         return (
             <Router>
-                <Stack key="root">
-                    <Scene key="home"
+                <Stack key="root_authen">
+                    <Scene key="login"
                         component={Login}
-                        title="Home"
+                        title="Login"
                         initial={true}
+                    />
+                    <Scene
+                        key="register"
+                        component={Register}
+                        title="Register"
+                    />
+                    <Scene key="home"
+                        component={Home}
+                        title="Home"
                     />
                 </Stack>
             </Router>    

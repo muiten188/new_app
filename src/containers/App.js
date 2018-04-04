@@ -12,7 +12,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
 import { Router, Scene } from 'react-native-router-flux';
-import AuthenNavigation from "../routers/authen_navigation";
 import RootNavigaion from "../routers/root_navigation";
 import * as appAction from "../store/actions/app_action";
 // import { startAsyncValidation } from "../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/redux-form";
@@ -26,8 +25,8 @@ class App extends Component {
   }
 
   render() {
+    debugger;
     let { loginReducer, appAction } = this.props;
-    let { showPayInfo } = this.props.app_Reducer;
     if (loginReducer.Logout == true) {
       AsyncStorage.setItem("@user", "");
     } else if (
@@ -45,16 +44,8 @@ class App extends Component {
         // //console.log("save error");
       }
     }
-    if (!loginReducer || !loginReducer.Logged) {
-      return <AuthenNavigation />;
-    }
     return (
-      <Container>
-        <RootNavigaion />
-        {showPayInfo ? (
-          <PayInfoModal show={true} onOk={this._closePayInfo.bind(this)} onClearError={this._clearPayListError.bind(this)} />
-        ) : null}
-      </Container>
+      <RootNavigaion isNotLogin={!loginReducer || !loginReducer.Logged} />
     );
   }
   _closePayInfo() {

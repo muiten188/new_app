@@ -5,32 +5,33 @@ import * as AppConfig from "../../config/app_config";
 
 export function login(user) {
   return dispatch => {
-    dispatch(_loging());
-    AsyncStorage.setItem("@userLogin", JSON.stringify(user));
-    fetch(`${AppConfig.API_HOST}mobile/authen/login`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(user)
-    })
-      .then(function(response) {
-        if (response.status != 200) {
-          dispatch(_login(false));
-        } else {
-          return response.json();
-        }
-      })
-      .then(function(responseJson) {
-        if (responseJson && responseJson.username) {
-          user = responseJson;
-          dispatch(_login(true, user));
-        }
-      })
-      .catch(function(error) {
-        dispatch(_login(false));
-      });
+    dispatch(_login(true, user));
+    //dispatch(_loging());
+    // AsyncStorage.setItem("@userLogin", JSON.stringify(user));
+    // fetch(`${AppConfig.API_HOST}mobile/authen/login`, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json, text/plain, */*",
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(user)
+    // })
+    //   .then(function(response) {
+    //     if (response.status != 200) {
+    //       dispatch(_login(false));
+    //     } else {
+    //       return response.json();
+    //     }
+    //   })
+    //   .then(function(responseJson) {
+    //     if (responseJson && responseJson.username) {
+    //       user = responseJson;
+    //       dispatch(_login(true, user));
+    //     }
+    //   })
+    //   .catch(function(error) {
+    //     dispatch(_login(false));
+    //   });
   };
 }
 
