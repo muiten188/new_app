@@ -9,7 +9,7 @@ export function search(values, currentPage, pageSize, user) {
   return dispatch => {
     //dispatch(_searching());
 
-    fetch(`${AppConfig.API_HOST}tablet/apartment?${getQueryString(dataPost)}`, {
+    fetch(`${AppConfig.API_HOST}?${getQueryString(dataPost)}`, {
       headers: buildHeader(user),
       method: "GET",
       qs: dataPost
@@ -91,7 +91,7 @@ export function loadMore(values, currentPage, pageSize, user) {
   dataPost = { ...dataPost, currentPage: currentPage + 1, pageSize: pageSize };
   return dispatch => {
     // dispatch(_searching());
-    fetch(`${AppConfig.API_HOST}tablet/apartment?${getQueryString(dataPost)}`, {
+    fetch(`${AppConfig.API_HOST}?${getQueryString(dataPost)}`, {
       headers: buildHeader(user),
       method: "GET",
       qs: dataPost

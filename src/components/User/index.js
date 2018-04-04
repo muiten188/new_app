@@ -15,6 +15,7 @@ import * as loginAction from "../../authen/actions/login_action";
 import * as appAction from "../../store/actions/app_action";
 import * as AppConfig from "../../config/app_config";
 import styles from "./styles";
+import { Actions } from "react-native-router-flux";
 const resolveAssetSource = require("resolveAssetSource");
 const userAvar = require("../../resources/assets/user.jpg");
 const ICON_SIZE = 24;
@@ -31,7 +32,7 @@ class user extends React.Component {
     this.state = {
       isEdit: false,
       username: "",
-      fullName: "",
+      fullName: "Tên Người Dùng",
       phoneNumber: "",
       birthDay: "",
       email: "",
@@ -42,18 +43,10 @@ class user extends React.Component {
 
   _onPress(e, i) {
     const { loginAction, appAction } = this.props;
-    if (i == 1) {
-      appAction.showPayInfo();
-    } else if (i == 2) {
-      RNXprinter.pickPrinter();
-    } else if (i == 3) {
-      RNXprinter.printDemoPage()
-        .then((value, mes) => {})
-        .catch(e => {
-          Alert.alert("Thông báo", "Vui lòng kết nối máy in trước khi in thử!");
-        });
-    } else if (i == 4) {
-      loginAction.logout();
+    if (i == 0) {
+      Alert.alert('Thông báo',"")
+    } else if (i == 1) {
+      Actions.reset("login");
     }
   }
 
@@ -64,9 +57,6 @@ class user extends React.Component {
       findNodeHandle(this.refs.menu),
       [
         this.state.fullName,
-        "Thanh toán trong ngày",
-        "Chọn máy in mặc định",
-        "In thử",
         ...actions
       ],
       this.handleShowPopupError,

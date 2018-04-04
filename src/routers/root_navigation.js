@@ -8,6 +8,7 @@ import Login from '../authen/containers/Login';
 import Register from '../authen/containers/Register';
 import Home from '../containers/Home';
 
+import PropTypes from 'prop-types';
 
 class RootNavigation extends React.Component {
     //Life cycle component
@@ -52,12 +53,17 @@ class RootNavigation extends React.Component {
                     <Scene key="home"
                         component={Home}
                         title="Home"
+                        initial={false}
                     />
                 </Stack>
-            </Router>    
+            </Router>
         );
     }
 }
+RootNavigation.propTypes = {
+
+}
+
 function mapStateToProps(state, props) {
     return {
         //navigationReducer: state.navigationReducer,

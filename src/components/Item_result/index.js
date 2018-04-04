@@ -45,15 +45,15 @@ export default class extends PureComponent {
         />
         <View style={[styles.item, item.paymentStatus == true ? { borderColor: '#28a745', borderWidth: 1.5 } : { borderColor: "#b5b5b5", borderWidth: 1 }]}>
           <Item disabled style={[styles.name_center, styles.borderBottomNone]}>
-            <H3 style={styles.textPadding}>{userName}</H3>
+            <H3 style={styles.textPadding}>{"Bùi Văn Tân"}</H3>
           </Item>
           <Item disabled style={[styles.itemPostion, styles.borderBottomNone]}>
             <Icon name="map-marker" style={styles.icon} />
-            <Text>{position}</Text>
+            <Text>{"Trưởng phòng"}</Text>
           </Item>
           <Item disabled style={[styles.itemPhone, styles.borderBottomNone]}>
             <Icon name="phone" style={styles.icon} />
-            <Text>{phone}</Text>
+            <Text>{"0123.456.789"}</Text>
           </Item>
         </View>
       </View>

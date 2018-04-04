@@ -11,11 +11,10 @@ import { Container } from "native-base";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Provider } from "react-redux";
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Actions } from 'react-native-router-flux';
 import RootNavigaion from "../routers/root_navigation";
 import * as appAction from "../store/actions/app_action";
-// import { startAsyncValidation } from "../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/redux-form";
-
+import PropTypes from 'prop-types';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,6 @@ class App extends Component {
   }
 
   render() {
-    debugger;
     let { loginReducer, appAction } = this.props;
     if (loginReducer.Logout == true) {
       AsyncStorage.setItem("@user", "");
@@ -45,7 +43,7 @@ class App extends Component {
       }
     }
     return (
-      <RootNavigaion isNotLogin={!loginReducer || !loginReducer.Logged} />
+      <RootNavigaion />
     );
   }
   _closePayInfo() {
@@ -56,6 +54,12 @@ class App extends Component {
     const { appAction } = this.props;
     appAction.clearPayListError();
   }
+}
+
+App.propTypes ={
+  appAction:PropTypes.object,
+  app_Reducer:PropTypes.object,
+  loginReducer:PropTypes.object
 }
 
 function mapStateToProps(state, props) {

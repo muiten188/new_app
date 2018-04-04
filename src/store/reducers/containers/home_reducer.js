@@ -2,7 +2,7 @@ import * as types from "../../constants/action_types";
 import { FETCH_CATCH } from "../../constants/action_types";
 const initState = {
   isLoading: false,
-  listResult: [],
+  listResult: [{},{},{},{},{}],
   searchErorr: false,
   valuesForm: {},
   currentPage: 1,

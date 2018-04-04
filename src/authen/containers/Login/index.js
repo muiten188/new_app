@@ -35,6 +35,7 @@ import { InputField } from "../../../components/Element/Form";
 import Loading from "../../../components/Loading";
 import { Actions } from "react-native-router-flux";
 import * as helper from "../../../helper";
+import PropTypes from 'prop-types';
 const username = "";
 const password = "";
 
@@ -59,7 +60,7 @@ const validate = values => {
   return error;
 };
 
-class login extends Component {
+class login extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -80,22 +81,6 @@ class login extends Component {
   }
 
   componentDidMount() {
-    // try {
-    //   const { loginAction } = this.props;
-    //   const hadUser = AsyncStorage.getItem("@user")
-    //     .then(value => {
-    //       try {
-    //         user = JSON.parse(value);
-    //         if (user) {
-    //           loginAction.setUser(user);
-    //         }
-    //       } catch (e) {}
-    //     })
-    //     .done();
-    // } catch (error) {
-    //   alert(error);
-    //   // Error retrieving data
-    // }
     const { loginAction } = this.props;
     const { loginReducer } = this.props;
     try {
@@ -136,7 +121,7 @@ class login extends Component {
       Alert.alert("Thông báo", "Đăng nhập thất bại");
       loginReducer.Logged = null;
     }
-
+    debugger;
     return (
       <View style={{ flex: 1 }}>
         <Loading isShow={loginReducer.Loging} />
@@ -179,16 +164,8 @@ class login extends Component {
             <Container style={styles.container_login}>
               <View style={styles.content_login}>
                 <View>
-                  {/* <Thumbnail square large source={require("../../../resources/assets/splash.png")} /> */}
+ 
                   <View style={styles.app_icon}>
-                    {/* <Thumbnail
-                      square
-                      large
-                      source={{
-                        uri:
-                          "https://3.bp.blogspot.com/-9FS5zPnrtrQ/WdjintM17tI/AAAAAAAAHuc/qnzExAUr9O036AxE35tky5Bm-1BmB-qYgCLcBGAs/s320/y-nghia-icon-facebook-zalo.png"
-                      }}
-                    /> */}
                   </View>
                   <Form style={styles.form}>
                     <Item regular style={styles.item}>
@@ -239,11 +216,6 @@ class login extends Component {
                     </Button>
                   </Form>
                   <Grid>
-                    {/* <Col style={styles.col_footer}>
-                      <Text style={[styles.text_footer, { textAlign: "left" }]}>
-                        Hotline: 0243 333 888
-                      </Text>
-                    </Col> */}
                     <Row style={styles.col_footer}>
                       <Text
                         style={[styles.text_footer, { textAlign: "right" }]}
@@ -260,6 +232,13 @@ class login extends Component {
     );
   }
 }
+
+login.propTypes = {
+  loginAction:PropTypes.object,
+  handleSubmit:PropTypes.func, 
+  submitting:PropTypes.bool, 
+  loginReducer:PropTypes.object 
+};
 
 function mapStateToProps(state, props) {
   return {

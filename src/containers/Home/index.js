@@ -32,9 +32,8 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Field, reduxForm } from "redux-form";
 import { DateField } from "../../components/Element/Form";
 import ItemResult from "../../components/Item_result";
-import * as searchAction from "../../store/actions/containers/search_action";
+import * as homeAction from "../../store/actions/containers/home_action";
 import Loading from "../../components/Loading";
-import FormSearch from "./form_search";
 const blockAction = false;
 const blockLoadMoreAction = false;
 
@@ -56,22 +55,11 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    // const { searchAction } = this.props;
-    // const { user } = this.props.loginReducer;
-    // const { currentPage, pageSize } = this.props.searchReducer;
-    // if (!blockAction) {
-    //   blockAction = true;
-    //   setTimeout(() => {
-    //     searchAction.search({}, currentPage, pageSize, user);
-    //   });
-    //   setTimeout(() => {
-    //     blockAction = false;
-    //   }, 500)
-    // }
+
   }
   componentDidUpdate(prevProps, prevState) {
     const { dispatch } = this.props.navigation;
-    const { isLoading, listResult } = this.props.searchReducer;
+    const { isLoading, listResult } = this.props.homeReducer;
     if (this.loading.getState() == true) {
       this.loading.hide();
     }
@@ -85,7 +73,7 @@ class Home extends Component {
       if (!blockAction) {
         blockAction = true;
         this.currentApartment = listResult[0];
-        dispatch.push({ id: "BillList", apartment: listResult[0] });
+        //push
         setTimeout(() => {
           blockAction = false;
         }, 700);
@@ -104,9 +92,9 @@ class Home extends Component {
       currentPage,
       pageSize,
       loadEnd
-    } = this.props.searchReducer;
+    } = this.props.homeReducer;
     blockLoadMoreAction = loadEnd;
-    const { searchAction } = this.props;
+    const { homeAction } = this.props;
     const { user } = this.props.loginReducer;
     if (searchErorr == true) {
       Alert.alert(
@@ -116,7 +104,7 @@ class Home extends Component {
           {
             text: "Ok",
             onPress: e => {
-              searchAction.clearError();
+              homeAction.clearError();
             }
           }
         ],
@@ -131,48 +119,12 @@ class Home extends Component {
           keyboardVerticalOffset={-350}
         >
           <Grid>
-            <Col size={32} style={[styles.grid_col, styles.col_form]}>
-              <HeaderForm
-                onBack={() => {
-                  if (!blockAction) {
-                    blockAction = true;
-                    searchAction.searchReset();
-                    dispatch.push({ id: "UserInfo" });
-                    setTimeout(() => {
-                      blockAction = false;
-                    }, 700);
-                  }
-                }}
-                headerTitle={I18n.t("searchInfo", {
-                  locale: locale ? locale : "vn"
-                })}
-              />
-              <Content>
-                <FormSearch
-                  searchAction={values => {
-                    this.loading.show();
-                    searchAction.search(values, currentPage, pageSize, user);
-                    //this.setState({ a: 1 }, () => this.loading.hide());
-                  }}
-                  temshow={() => { }}
-                  scrollUp={() => {
-                    if (listResult.length > 0) {
-                      this.list.scrollToIndex({ index: 0 });
-                    }
-                  }}
-                // user={user}
-                />
-
-
-
-              </Content>
+            <Col size={68} style={[styles.grid_col, styles.col_content]}>
               <View style={{ position: 'absolute', bottom: 4, left: 4, width: 34, height: 34 }}>
                 <Loading ref={ref => {
                   this.smallLoading = ref;
                 }} />
               </View>
-            </Col>
-            <Col size={68} style={[styles.grid_col, styles.col_content]}>
               <HeaderContent
                 onBack={() => {
                   dispatch.pop();
@@ -191,7 +143,6 @@ class Home extends Component {
                   data={listResult ? listResult : []}
                   keyExtractor={this._keyExtractor}
                   renderItem={this.renderFlatListItem.bind(this)}
-                  numColumns={2}
                   onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
                   onEndReached={({ distanceFromEnd }) => {
                     if (distanceFromEnd > 0) {
@@ -204,7 +155,7 @@ class Home extends Component {
                         blockLoadMoreAction = true;
                         this.smallLoading.show(),
                           setTimeout(() => {
-                            searchAction.loadMore(
+                            homeAction.loadMore(
                               valuesForm,
                               currentPage,
                               pageSize,
@@ -239,19 +190,15 @@ class Home extends Component {
   renderFlatListItem(dataItem) {
     const item = dataItem.item;
     const { dispatch } = this.props.navigation;
-    const { listResult } = this.props.searchReducer;
+    const { listResult } = this.props.homeReducer;
     return (
       <TouchableOpacity
         key={item.index}
-        style={
-          listResult && listResult.length >= 2
-            ? styles.item_container_half
-            : styles.item_container_full
+        style={styles.item_container_full
         }
         onPress={() => {
           if (!blockAction) {
             blockAction = true;
-            dispatch.push({ id: "BillList", apartment: item });
             setTimeout(() => {
               blockAction = false;
             }, 800);
@@ -266,10 +213,7 @@ class Home extends Component {
           avatarUrl={item.avatarUrl}
           item={item}
         />
-        {item.paymentStatus == true ? <Icon style={listResult && listResult.length >= 2
-          ? styles.check_half
-          : styles.check_full
-        } name="check"></Icon> : null}
+        {item.paymentStatus == true ? <Icon style={styles.check_half} name="check"></Icon> : null}
 
       </TouchableOpacity>
     );
@@ -280,13 +224,13 @@ class Home extends Component {
 }
 function mapStateToProps(state, props) {
   return {
-    searchReducer: state.searchReducer,
+    homeReducer: state.homeReducer,
     loginReducer: state.loginReducer
   };
 }
 function mapToDispatch(dispatch) {
   return {
-    searchAction: bindActionCreators(searchAction, dispatch)
+    homeAction: bindActionCreators(homeAction, dispatch)
   };
 }
 // export default reduxForm({

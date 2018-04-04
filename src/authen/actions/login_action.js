@@ -2,10 +2,12 @@ import { AsyncStorage } from "react-native";
 
 import * as types from "../../store/constants/action_types";
 import * as AppConfig from "../../config/app_config";
-
+import { Actions } from 'react-native-router-flux';
 export function login(user) {
+  
   return dispatch => {
     dispatch(_login(true, user));
+    Actions.home()
     //dispatch(_loging());
     // AsyncStorage.setItem("@userLogin", JSON.stringify(user));
     // fetch(`${AppConfig.API_HOST}mobile/authen/login`, {

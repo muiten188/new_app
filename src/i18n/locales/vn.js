@@ -10,5 +10,6 @@ export default {
   email: "Email",
   user: "Tên người dùng",
   changePassword: 'Đổi mật khẩu',
-  register:'Đăng ký'
+  register:'Đăng ký',
+  result:"Kết quả",
 };

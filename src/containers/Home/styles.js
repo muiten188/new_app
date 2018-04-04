@@ -74,6 +74,7 @@ export default {
   },
   listResult: {
     paddingTop: 15,
+    width:'100%'
   },
   listResult_container: {
     justifyContent: "center",
@@ -89,7 +90,7 @@ export default {
   item_container_half: {
     width: "50%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   item_container_full: {
     width: "100%",
