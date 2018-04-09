@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+const FBSDK = require('react-native-fbsdk');
 import {
   TouchableOpacity,
   Image,
@@ -34,6 +35,7 @@ import { Field, reduxForm } from "redux-form";
 import { InputField } from "../../../components/Element/Form";
 import Loading from "../../../components/Loading";
 import { Actions } from "react-native-router-flux";
+const { LoginButton, ShareDialog } = FBSDK;
 import * as helper from "../../../helper";
 import PropTypes from 'prop-types';
 const username = "";
@@ -164,7 +166,7 @@ class login extends React.Component {
             <Container style={styles.container_login}>
               <View style={styles.content_login}>
                 <View>
- 
+
                   <View style={styles.app_icon}>
                   </View>
                   <Form style={styles.form}>
@@ -217,10 +219,7 @@ class login extends React.Component {
                   </Form>
                   <Grid>
                     <Row style={styles.col_footer}>
-                      <Text
-                        style={[styles.text_footer, { textAlign: "right" }]}
-                      >
-                      </Text>
+                      <LoginButton />
                     </Row>
                   </Grid>
                 </View>
@@ -234,10 +233,10 @@ class login extends React.Component {
 }
 
 login.propTypes = {
-  loginAction:PropTypes.object,
-  handleSubmit:PropTypes.func, 
-  submitting:PropTypes.bool, 
-  loginReducer:PropTypes.object 
+  loginAction: PropTypes.object,
+  handleSubmit: PropTypes.func,
+  submitting: PropTypes.bool,
+  loginReducer: PropTypes.object
 };
 
 function mapStateToProps(state, props) {

@@ -11,12 +11,12 @@ import {
   Text,
   View
 } from 'react-native';
-// import Index from './src';
+import Index from './src';
 
 export default class App extends Component{
   render() {
     return (
-      <Text>Bach Test</Text>
+      <Index />
     );
   }
 }
