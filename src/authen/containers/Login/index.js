@@ -35,7 +35,7 @@ import { Field, reduxForm } from "redux-form";
 import { InputField } from "../../../components/Element/Form";
 import Loading from "../../../components/Loading";
 import { Actions } from "react-native-router-flux";
-const { LoginButton, ShareDialog } = FBSDK;
+const { LoginButton, ShareDialog, AccessToken, GraphRequestManager, GraphRequest } = FBSDK;
 import * as helper from "../../../helper";
 import PropTypes from 'prop-types';
 const username = "";
@@ -123,7 +123,6 @@ class login extends React.Component {
       Alert.alert("Thông báo", "Đăng nhập thất bại");
       loginReducer.Logged = null;
     }
-    debugger;
     return (
       <View style={{ flex: 1 }}>
         <Loading isShow={loginReducer.Loging} />
@@ -219,7 +218,41 @@ class login extends React.Component {
                   </Form>
                   <Grid>
                     <Row style={styles.col_footer}>
-                      <LoginButton />
+                      <LoginButton
+                        publishPermissions={["publish_actions"]}
+
+                        onLoginFinished={
+                          (error, result) => {
+                            if (error) {
+                              alert("login has error: " + result.error);
+                            } else if (result.isCancelled) {
+                              alert("login is cancelled.");
+                            } else {
+                              AccessToken.getCurrentAccessToken().then(
+                                (data) => {
+                                  let accessToken = data.accessToken;
+                                  //alert(accessToken.toString());
+                                  const infoRequest = new GraphRequest(
+                                    '/me',
+                                    {
+                                      accessToken: accessToken,
+                                      parameters: {
+                                        fields: {
+                                          string: 'email,name,first_name,middle_name,last_name'
+                                        }
+                                      }
+                                    },
+                                    this.responseInfoCallback.bind(this)
+                                  );
+
+                                  // Start the graph request.
+                                  new GraphRequestManager().addRequest(infoRequest).start();
+
+                                })
+                            }
+                          }
+                        }
+                        onLogoutFinished={() => alert("logout.")} />
                     </Row>
                   </Grid>
                 </View>
@@ -230,7 +263,24 @@ class login extends React.Component {
       </View>
     );
   }
+  //facebook call back
+  responseInfoCallback(error, result) {
+    if (error) {
+      console.log(error)
+      //alert('Error fetching data: ' + error.toString());
+    } else {
+      console.log(result)
+      this.props.change("username", result.name)
+      this.props.change("password", result.id)
+      
+      //alert('Success fetching data: ' + result.toString());
+    }
+  }
+
+
 }
+
+
 
 login.propTypes = {
   loginAction: PropTypes.object,
